@@ -18,4 +18,9 @@ class MessageService(val db:JdbcTemplate) {
             id, message.text
         )
     }
+
+    fun findMessageById(id: String): List<Message> = db.query("select * from messages where id = '$id'") { response, _ ->
+        Message(response.getString("id"), response.getString("text"))
+    }
+
 }
